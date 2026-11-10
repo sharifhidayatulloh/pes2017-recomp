@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import java.io.File
 
 /**
- * Where the player's own PES 2017 files are, and whether the app may read them.
+ * Where the player's own PES 2018 files are, and whether the app may read them.
  *
  * The runtime opens the game by path, so a folder chosen through the system
  * picker (a tree of documents) is only usable in place when it can be turned
@@ -73,7 +73,10 @@ object GameFolder {
             candidates += File(own, "import")
         }
         candidates += File(context.filesDir, "game")
-        val names = listOf("PES2017", "PES 2017", "PES17", "pes2017", "pes17", "PES_2017", "Pro Evolution Soccer 2017")
+        val names = listOf(
+            "PES2018", "PES 2018", "PES18", "pes2018", "pes18", "PES_2018", "Pro Evolution Soccer 2018",
+            "PES2017", "PES 2017", "PES17", "pes2017", "pes17", "PES_2017", "Pro Evolution Soccer 2017",
+        )
         if (hasAccess(context)) {
             val roots = listOf(
                 Environment.getExternalStorageDirectory(),

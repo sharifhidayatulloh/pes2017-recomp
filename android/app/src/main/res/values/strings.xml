@@ -178,11 +178,11 @@
     <string name="entry_install">INSTALL FROM DISC IMAGE</string>
     <string name="entry_settings">SETTINGS</string>
     <string name="direct_launch">Kick off straight away when the app opens</string>
-    <string name="select_folder_hint">The app first looks for the game on this phone by itself. If it cannot find it, point it at the folder that holds your PES 2017 files (default.xex and the .cpk archives). If Android has not yet let the app read that part of the storage, it asks first.</string>
+    <string name="select_folder_hint">The app first looks for the game on this phone by itself. If it cannot find it, point it at the folder that holds your PES 2018 files (default.xex and the .cpk archives). If Android has not yet let the app read that part of the storage, it asks first.</string>
     <string name="settings_hint">Picture, performance, controls and game files for this port.</string>
     <string name="install_game">Install the game files</string>
-    <string name="install_hint">Point this at a disc image (.iso) of your own PES 2017 copy, or at the folder its files were extracted to (default.xex and the .cpk archives). Only the files the game needs are copied into the app\'s own storage; about 7 GB of free space is wanted.</string>
-    <string name="status_not_installed">No game folder chosen yet.\n\nThis app contains no game data. Choose the folder with your own copy of PES 2017, or install from a disc image.</string>
+    <string name="install_hint">Point this at a disc image (.iso) of your own PES 2018 copy, or at the folder its files were extracted to (default.xex and the .cpk archives). Only the files the game needs are copied into the app\'s own storage; about 7 GB of free space is wanted.</string>
+    <string name="status_not_installed">No game folder chosen yet.\n\nThis app contains no game data. Choose the folder with your own copy of PES 2018, or install from a disc image.</string>
     <string name="status_ready">Match ready.\nGame folder: %1$s</string>
     <string name="status_ready_auto">Match ready. The game files were found on this phone:\n%1$s</string>
     <string name="status_folder_missing">The chosen game folder is gone or unreadable:\n%1$s\n\nChoose it again.</string>
@@ -193,7 +193,7 @@
     <string name="folder_title">Game folder</string>
     <string name="folder_no_xex">That folder has no default.xex. Pick the folder that holds default.xex and the .cpk files.</string>
     <string name="folder_found_inside">Found the game one level down:\n%1$s</string>
-    <string name="folder_wrong_game">This default.xex is not the PES 2017 (Europe) executable this app was recompiled from. It may not run.</string>
+    <string name="folder_wrong_game">This default.xex is not the PES 2018 (Europe) executable this app was recompiled from. It may not run.</string>
     <string name="folder_use_anyway">Use anyway</string>
     <string name="folder_use_here">Use this folder</string>
     <string name="folder_set">The game will run from:\n%1$s\n\nSaves and caches are kept in its parent folder.</string>

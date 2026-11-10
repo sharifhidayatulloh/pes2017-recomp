@@ -518,7 +518,7 @@ class GameActivity : AppCompatActivity(), NativeListener {
             gravity = Gravity.CENTER_VERTICAL
         }
         val hudTitle = TextView(this).apply {
-            text = "PES 2017 ANDROID · PERFORMANCE"
+            text = "PES 2018 ANDROID · PERFORMANCE"
             setTextColor(Color.argb(255, 56, 189, 248))
             textSize = 11f
             typeface = Typeface.DEFAULT_BOLD
@@ -764,7 +764,7 @@ class GameActivity : AppCompatActivity(), NativeListener {
         NativeBridge.nativeSetOption("PES17_UPSCALER", if (prefs.fsr) "fsr" else "")
         NativeBridge.nativeSetOption("PES17_FSR_SHARPNESS", String.format(Locale.US, "%.1f", prefs.fsrSharpness))
         // For trying other caps without a rebuild: a number in files/fps_limit
-        // (adb shell "echo 40 > /sdcard/Android/data/com.pes2017.recomp/files/fps_limit") wins over the switch.
+        // (adb shell "echo 40 > /sdcard/Android/data/com.pes2018.recomp/files/fps_limit") wins over the switch.
         val fpsOverride = try {
             getExternalFilesDir(null)?.let { File(it, "fps_limit") }?.takeIf { it.isFile }?.readText()?.trim()
         } catch (_: Exception) { null }

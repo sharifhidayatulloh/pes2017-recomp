@@ -83,6 +83,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        applySystemBars()
         prefs = Prefs(this)
         relaunchRequested = QuickGraphics.takeRelaunch(intent, prefs)
         // The performance preset this phone starts from, once (DeviceProfile).
@@ -709,7 +710,7 @@ class MainActivity : AppCompatActivity() {
         try {
             val manager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
             val request = DownloadManager.Request(Uri.parse(apkUrl))
-                .setTitle("PES 2017 update")
+                .setTitle("PES 2018 update")
                 .setDescription("Downloading APK")
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "pes17-update.apk")
@@ -740,9 +741,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        // Where this port publishes releases; the check reads the latest one.
-        private const val RELEASES_PAGE = "https://github.com/dzakyraf/pes2017-recomp/releases/latest"
-        private const val RELEASES_API = "https://api.github.com/repos/dzakyraf/pes2017-recomp/releases/latest"
+        // No release feed yet for this port: the 2017 repository's releases are a
+        // different app and must never be offered as an update of this one.
+        private const val RELEASES_PAGE = ""
+        private const val RELEASES_API = ""
     }
 
     private fun showLastCrash(crash: String) {
@@ -797,7 +799,7 @@ class MainActivity : AppCompatActivity() {
     private fun share(text: String) {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_SUBJECT, "PES 2017 log")
+        intent.putExtra(Intent.EXTRA_SUBJECT, "PES 2018 log")
         intent.putExtra(Intent.EXTRA_TEXT, text.takeLast(200_000))
         startActivity(Intent.createChooser(intent, getString(R.string.share)))
     }

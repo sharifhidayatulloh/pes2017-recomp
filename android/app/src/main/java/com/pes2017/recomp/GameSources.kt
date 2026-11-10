@@ -12,7 +12,7 @@ data class GameSource(val file: File, val isFolder: Boolean, val bytes: Long) {
 /**
  * Finds the game on the phone without being told where: disc images and
  * extracted folders in the usual places. A folder counts when it holds
- * default.xex and at least one .cpk archive, which is what PES 2017 unpacks to.
+ * default.xex and at least one .cpk archive, which is what PES 2018 unpacks to.
  * Reading outside the app's own folder needs the all-files permission, so what
  * this finds depends on what has been granted; the installer's own pickers
  * cover the rest.

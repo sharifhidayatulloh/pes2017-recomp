@@ -3,7 +3,7 @@
      a white page, navy and blue, a red accent and a gold highlight. As in the
      PES 5/6 menus, the chosen entry is the one in gold on a dark band. -->
 <resources>
-    <color name="launcher_background">#FFFFFF</color>
+    <color name="launcher_background">#0B1B33</color>
     <color name="pes_page">#FFFFFF</color>
     <color name="pes_navy">#0A1B45</color>
     <color name="pes_blue">#004D98</color>

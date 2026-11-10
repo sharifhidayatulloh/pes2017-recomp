@@ -323,7 +323,7 @@ class CaptureSession(private val activity: Activity, private val prefs: Prefs) {
         val renderer = try { NativeBridge.nativeRendererInfo() } catch (_: Throwable) { "" }
         val driver = try { NativeBridge.nativeDriverDescription() } catch (_: Throwable) { "" }
         val info = StringBuilder()
-        info.append("PES 2017 Android capture: $name\n")
+        info.append("PES 2018 Android capture: $name\n")
         info.append("what went wrong: ${note.ifBlank { "(not said)" }}\n\n")
         info.append("duration: ${"%.1f".format(Locale.US, seconds)} s, $count samples\n")
         info.append("fps: avg ${"%.1f".format(Locale.US, average)}, min ${if (fpsMin == Float.MAX_VALUE) 0 else fpsMin}, max $fpsMax; worst frame $worstFrameMs ms\n")

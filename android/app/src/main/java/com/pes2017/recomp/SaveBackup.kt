@@ -133,7 +133,7 @@ object SaveBackup {
             ?.sortedByDescending { it.name } ?: emptyList()
 
     /** The file name offered for a backup the player saves. */
-    fun suggestedName(): String = "pes2017-saves-${stamp()}.zip"
+    fun suggestedName(): String = "pes2018-saves-${stamp()}.zip"
 
     private fun stamp(): String = SimpleDateFormat("yyyyMMdd-HHmmss", Locale.US).format(Date())
 }

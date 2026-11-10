@@ -200,7 +200,7 @@ class Prefs(context: Context) {
         // 0 is "automatic": the runtime sizes it from the device's memory
         // (android/perf.cpp, a sixth of it: 1 GB on an 8 GB phone). A fixed 128
         // was far too little once DXT textures are decoded to RGBA on a GPU
-        // without BC support -- PES 2017's pitch alone is 2048x2048 -- and the
+        // without BC support -- PES 2018's pitch alone is 2048x2048 -- and the
         // match evicted and re-uploaded its textures every few frames.
         get() = store.getInt(KEY_TEXTURE_MB, 0)
         set(value) = store.edit().putInt(KEY_TEXTURE_MB, value).apply()

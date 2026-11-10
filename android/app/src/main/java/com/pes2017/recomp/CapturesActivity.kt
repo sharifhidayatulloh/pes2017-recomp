@@ -28,6 +28,7 @@ class CapturesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_captures)
+        applySystemBars()
         findViewById<View>(R.id.back_button).setOnClickListener { onBackPressedDispatcher.onBackPressed() }
         title = getString(R.string.captures_title)
         // Zips left by an earlier share. Not removed when the screen is left: the share sheet opens over

@@ -1,23 +1,20 @@
 package com.pes2017.recomp
 
 import android.graphics.Color
-import android.os.Build
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 
 /**
  * Settings > Controls > Arrange: the on-screen pad editor without a match.
- * Full screen and landscape like the match, so a control put somewhere here
- * is in the same place in play. The same strip as the in-match editor
+ * Landscape like the match, so a control put somewhere here is in the same
+ * place in play, but the system bars stay visible so the strip's text is not
+ * under the status bar or a cutout. The same strip as the in-match editor
  * (ControlEditPanel); every change is saved as it is made.
  */
 class ControlsEditorActivity : AppCompatActivity() {
@@ -28,6 +25,7 @@ class ControlsEditorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val prefs = Prefs(this)
+        window.setBackgroundDrawable(ColorDrawable(Color.rgb(18, 58, 34)))
         val root = FrameLayout(this)
         // A dark pitch, so the translucent controls read as they do over a match.
         root.setBackgroundColor(Color.rgb(18, 58, 34))
@@ -55,6 +53,7 @@ class ControlsEditorActivity : AppCompatActivity() {
             FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT),
         )
         setContentView(root)
+        applySystemBars(lightIcons = false)
 
         panel = ControlEditPanel(this, root, overlay) { finish() }
         overlay.editing = true
@@ -65,26 +64,8 @@ class ControlsEditorActivity : AppCompatActivity() {
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-        goFullscreen()
-    }
-
     override fun onPause() {
         super.onPause()
         overlay.layout.save(this)
-    }
-
-    private fun goFullscreen() {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        val controller = WindowInsetsControllerCompat(window, window.decorView)
-        controller.hide(WindowInsetsCompat.Type.systemBars())
-        controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            // As the match: drawn into the cutout, so the window is the same size.
-            val attributes = window.attributes
-            attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
-            window.attributes = attributes
-        }
     }
 }

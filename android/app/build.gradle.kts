@@ -27,7 +27,7 @@ val repositoryRoot = file("../..")
 fun setting(name: String): String? = System.getenv(name)?.trim()?.ifEmpty { null }
 
 // The retail default.xex the app installs: the Kotlin folder import checks it before copying 6 GB.
-val pesXexSha256 = setting("PES17_XEX_SHA256_SP") ?: "b914ec9a1abb3a9b42a64255b6aa8ff27312da126f7c18f8c880106b832779e6"
+val pesXexSha256 = setting("PES17_XEX_SHA256_SP") ?: "18d1e93ee219bd590b2558b6004b05785a36e3bcb01219ef0bccb4bab3552c5d"
 
 // The app's own sources have to be here. They went missing once -- written,
 // built against, and never committed -- and the result was an apk that
@@ -49,7 +49,11 @@ android {
     ndkVersion = setting("PES17_NDK_VERSION") ?: "28.2.13676358"
 
     defaultConfig {
-        applicationId = "com.pes2017.recomp"
+        applicationId = "com.pes2018.recomp"
+        // A build with its own package (PES17_APP_ID_SUFFIX=diag gives
+        // com.pes2018.recomp.diag) installs beside the release instead of over
+        // it, which is what a diagnostic build next to a working one wants.
+        setting("PES17_APP_ID_SUFFIX")?.let { applicationIdSuffix = ".$it" }
         // Android 8.0. AAudio, ASurfaceControl-free presenting, and the
         // Vulkan 1.1 drivers this renderer needs all predate it; below that
         // there is no device with the memory to run this anyway.
@@ -61,7 +65,7 @@ android {
         // 16: v0.0.2-alpha, over 15 (v0.0.2), and v0.0.1, where the names started
         // again: the code never goes back, or an installed copy would refuse it.
         // 17: v0.1.0. 18: v0.1.1.
-        versionCode = setting("PES17_VERSION_CODE")?.toIntOrNull() ?: 18
+        versionCode = setting("PES17_VERSION_CODE")?.toIntOrNull() ?: 1
         // Which build this is, carried inside the apk. "The wrong apk" has
         // cost more than one evening, and every time the only way to settle
         // it was to guess. The launcher shows this and Android's app info
@@ -98,17 +102,17 @@ android {
                         "-DCMAKE_CXX_COMPILER_LAUNCHER=$it",
                     )
                 }
-                val sp = setting("PES17_XEX_SHA256_SP") ?: "b914ec9a1abb3a9b42a64255b6aa8ff27312da126f7c18f8c880106b832779e6"
-                val mp = setting("PES17_XEX_SHA256_MP") ?: "b914ec9a1abb3a9b42a64255b6aa8ff27312da126f7c18f8c880106b832779e6"
+                val sp = setting("PES17_XEX_SHA256_SP") ?: "18d1e93ee219bd590b2558b6004b05785a36e3bcb01219ef0bccb4bab3552c5d"
+                val mp = setting("PES17_XEX_SHA256_MP") ?: "18d1e93ee219bd590b2558b6004b05785a36e3bcb01219ef0bccb4bab3552c5d"
                 arguments += listOf("-DPES17_XEX_SHA256_SP=$sp", "-DPES17_XEX_SHA256_MP=$mp")
                 cppFlags += (setting("PES17_NATIVE_OPTIMISATION") ?: "-O3")
             }
         }
     }
 
-    // One executable, one app: PES 2017 is installed from the disc as it is.
+    // One executable, one app: PES 2018 is installed from the disc as it is.
     defaultConfig {
-        resValue("string", "app_name", "PES 2017")
+        resValue("string", "app_name", "PES 2018")
     }
 
     // -PprebuiltNative=<dir with arm64-v8a/*.so> packages libraries built by
