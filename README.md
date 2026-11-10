@@ -1,5 +1,9 @@
 # PES 2017 Android (Xbox 360 → ARM64 recompilation)
 
+> **PES 2018 branch.** This branch carries the PES 2018 port on the same
+> pipeline; the build steps and the shared runtime are unchanged. Title-specific
+> addresses, hooks and app details are in [docs/PES2018.md](docs/PES2018.md).
+
 An ahead-of-time recompilation of *Pro Evolution Soccer 2017* (Xbox 360) to native ARM64 code for Android.
 The game's PowerPC code is translated to C++ with [XenonRecomp](https://github.com/hedge-dev/XenonRecomp)
 and built with the Android NDK. A host runtime stands in for the console's kernel, GPU (Vulkan) and audio,
