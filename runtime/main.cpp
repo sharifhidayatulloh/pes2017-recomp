@@ -34,6 +34,13 @@
 #include <thread>
 #include <vector>
 
+// The predicate-wait report engine.h declares: the file its comment names was
+// never added, so a diagnostics build failed to link on it. A release build
+// inlines the empty form in the header; this is that form, out of line.
+#if PES17_DIAGNOSTICS
+namespace engine { void ReportPredicateWaits() {} }
+#endif
+
 // A run that ends on a deadline and a run that ends on a fault are asking the
 // same question, so they print the same reports.
 static void ReportAll()
@@ -208,7 +215,7 @@ int pes17::Run(int argc, char** argv)
     }
 #endif  // PES17_ANDROID
 
-    LOGI("--- PES 2017 recompilation runtime (%s) ---", PES17_TITLE_NAME);
+    LOGI("--- PES 2018 recompilation runtime (%s) ---", PES17_TITLE_NAME);
     if (!kept.empty()) LOGI("settings: %s", kept.c_str());
 
     // A player starts the executable with no arguments (runtime/install/); a

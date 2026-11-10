@@ -11,10 +11,13 @@
 #       locals (-31%) and is only for a build whose guest code has been validated.
 #   RECOMPILE_ONLY=1   stop once ppc/ is generated and checked (step 7)
 #   JOBS=<n>           parallel compile jobs;  CCACHE=1 uses ccache when installed
+#   DIAGNOSTICS=ON     build the runtime with the traces, dumps and reports
+#                      (default OFF, the size and speed a release wants)
 set -euo pipefail
 ROOT=$(cd "$(dirname "$0")" && pwd); cd "$ROOT"
 GAME=${GAME:-"$ROOT/../GAME"}
 PROFILE=${PROFILE:-balanced}
+DIAGNOSTICS=${DIAGNOSTICS:-OFF}
 CMAKE_CC=${CMAKE_CC:-/usr/bin/clang}; CMAKE_CXX=${CMAKE_CXX:-/usr/bin/clang++}
 JOBS=${JOBS:-$(getconf _NPROCESSORS_ONLN)}   # every core; override with JOBS=n
 unset PYTHONPATH PYTHONHOME   # tools/*.py import title.py from their own directory
@@ -99,7 +102,7 @@ LAUNCH=""
 [ "${CCACHE:-}" = 1 ] && command -v ccache >/dev/null && LAUNCH="-DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache"
 cmake -S . -B build-android -G Ninja -DCMAKE_TOOLCHAIN_FILE="$NDK/build/cmake/android.toolchain.cmake" \
       -DANDROID_ABI=arm64-v8a -DANDROID_PLATFORM=android-26 -DANDROID_STL=c++_shared \
-      -DPES17_DIAGNOSTICS=OFF -DPES17_USE_SDL=OFF -DCMAKE_BUILD_TYPE=Release \
+      -DPES17_DIAGNOSTICS=$DIAGNOSTICS -DPES17_USE_SDL=OFF -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_CXX_FLAGS_RELEASE="-O2 -DNDEBUG" $LAUNCH >logs-cmake.txt 2>&1 \
     || { tail -15 logs-cmake.txt; echo "cmake failed (logs-cmake.txt)"; exit 1; }
 ninja -C build-android -j"$JOBS" pes17

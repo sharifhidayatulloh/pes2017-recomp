@@ -100,3 +100,8 @@ rad_installer.exe
 
 # ---- Claude session notes ----
 .claude/
+
+# ---- PES 2018 local data and scratch ----
+/iso/
+/work/
+/log/
