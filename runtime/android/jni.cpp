@@ -285,7 +285,7 @@ PES17_NATIVE(jboolean, nativeInit)(JNIEnv* env, jobject, jstring filesDir, jstri
     // Everything the runtime prints rather than logs, the crash handler's
     // backtrace above all, now reaches that file instead of /dev/null.
     android::CaptureStandardStreams();
-    LOGI("--- PES 2017 on Android ---");
+    LOGI("--- PES 2018 on Android ---");
 #ifdef PES17_VERSION_TU0
     LOGI("android: disc version (TU0)");
 #else
