@@ -1,4 +1,4 @@
-// Hooks that make PES 2017 behave on a phone (as opposed to pes_debug.cpp's probes).
+// Hooks that make PES 2018 behave on a phone (as opposed to pes_debug.cpp's probes).
 #include <ppc_recomp_shared.h>
 #include "title.h"
 #include "guest.h"
@@ -12,7 +12,7 @@
 #include <chrono>
 #include <thread>
 
-// D3D's fence poll (sub_823F7C38; r3 -> { device, ?, last-seen retired, time }).
+// D3D's fence poll (sub_82417C38; r3 -> { device, ?, last-seen retired, time }).
 // It answers "still waiting" (1) until the word at [*(device+11024)] -- written by
 // the command processor's end-of-pipe event -- reaches the fence, and the caller
 // loops straight back into it. On the console that spin is free; here it ran the
@@ -20,9 +20,9 @@
 // own timeout arithmetic, to wait out the 16 ms the GPU needs for a frame. When
 // the answer is "still waiting", give the processor away first: the GPU thread
 // that will move the word gets it, and the phone stays cool.
-GUEST_HOOK(823F7C38)
+GUEST_HOOK(82417C38)
 {
-    GUEST_ORIG(823F7C38)(ctx, base);
+    GUEST_ORIG(82417C38)(ctx, base);
     if (ctx.r3.u32 == 1)
     {
         // A yield costs a syscall; a very short sleep lets the core idle. Short
@@ -39,11 +39,11 @@ GUEST_HOOK(823F7C38)
 // No install job is ever started here, so every first run quit to the launcher and the
 // next one began at the first-run screens again (nothing is saved). Starting at state 3
 // skips the quit and reaches TopMenu.
-GUEST_HOOK(82F3CBD0)
+GUEST_HOOK(82FDDB20)
 {
     const uint32_t self = ctx.r3.u32;
     if (*GuestPtr<be32>(self + 88) == 0) *GuestPtr<be32>(self + 88) = 3;
-    GUEST_ORIG(82F3CBD0)(ctx, base);
+    GUEST_ORIG(82FDDB20)(ctx, base);
 }
 
 // The first-run flow reaches Intro/ProcInstall without ever running
@@ -64,7 +64,7 @@ namespace
     }
 }
 
-GUEST_HOOK(82F00CE8)
+GUEST_HOOK(82F9CCE8)
 {
     static std::atomic<int> once{ 0 }, logged{ 0 };
     const std::string name = GuestString16(ctx.r5.u32);
@@ -79,20 +79,20 @@ GUEST_HOOK(82F00CE8)
         *GuestPtr<be32>(ctx.r5.u32 + 16) = uint32_t(sizeof text - 1);
         *GuestPtr<be32>(ctx.r5.u32 + 20) = 63;
     }
-    GUEST_ORIG(82F00CE8)(ctx, base);
+    GUEST_ORIG(82F9CCE8)(ctx, base);
 }
 
 
 // D3D's ring kicks (they store CP_RB_WPTR). See gpu::WaitAfterKick: while kits
 // are being composed, the CPU waits for the command processor after each kick,
 // so a resolve's write-back lands before the title reuses its memory.
-GUEST_HOOK(823F64B8)
+GUEST_HOOK(824164B8)
 {
-    GUEST_ORIG(823F64B8)(ctx, base);
+    GUEST_ORIG(824164B8)(ctx, base);
     gpu::WaitAfterKick();
 }
-GUEST_HOOK(8240CD00)
+GUEST_HOOK(8242CCF8)
 {
-    GUEST_ORIG(8240CD00)(ctx, base);
+    GUEST_ORIG(8242CCF8)(ctx, base);
     gpu::WaitAfterKick();
 }

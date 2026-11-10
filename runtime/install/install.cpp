@@ -155,7 +155,7 @@ namespace
     }
 
 #ifdef PES17_ANDROID
-    constexpr uint32_t kTitleId = 0x4A3007D1;   // PES 2017, from the XEX execution info
+    constexpr uint32_t kTitleId = 0x4A3007D3;   // PES 2018, from the XEX execution info
 
     struct Title { const char* xex; const char* sha256; const char* disc; };
     constexpr Title kTitles[] = {
@@ -176,10 +176,10 @@ namespace
             return name + " is not an Xbox 360 executable.";
         char text[256];
         if (info.titleId != kTitleId)
-            std::snprintf(text, sizeof(text), "This is not PES 2017 (title %08X).", info.titleId);
+            std::snprintf(text, sizeof(text), "This is not PES 2018 (title %08X).", info.titleId);
         else
             std::snprintf(text, sizeof(text),
-                          "This is PES 2017, but not the version this build was recompiled from "
+                          "This is PES 2018, but not the version this build was recompiled from "
                           "(Europe, executable version %u). Install from the European disc image "
                           "or its extracted folder.", info.version);
         return text;
@@ -193,7 +193,7 @@ namespace
             const size_t n = std::strlen(suffix);
             return lower.size() >= n && lower.compare(lower.size() - n, n, suffix) == 0;
         };
-        return endsWith(".cpk") || lower == "nxeart";   // PES 2017: the CPK archives
+        return endsWith(".cpk") || lower == "nxeart";   // PES 2018: the CPK archives
     }
 
     struct Progress
@@ -218,7 +218,7 @@ namespace
                 if (std::string(title.xex) == kXex)
                 {
                     error = std::string("There is no ") + title.xex + " in " + Utf8(from) +
-                            ": it is not a PES 2017 disc or folder (no default.xex).";
+                            ": it is not a PES 2018 disc or folder (no default.xex).";
                     return false;
                 }
                 continue;
